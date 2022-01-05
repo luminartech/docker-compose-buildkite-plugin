@@ -185,7 +185,11 @@ fi
 
 run_params+=("$run_service")
 
-build_params=(--pull)
+build_params=()
+
+if [[ "$(plugin_read_config FORCE_PULL "false")" == "true" ]] ; then
+  build_params+=(--pull)
+fi
 
 if [[ "$(plugin_read_config NO_CACHE "false")" == "true" ]] ; then
   build_params+=(--no-cache)
