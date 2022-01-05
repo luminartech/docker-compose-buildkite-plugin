@@ -73,7 +73,11 @@ while read -r line ; do
   [[ -n "$line" ]] && services+=("$line")
 done <<< "$(plugin_read_list BUILD)"
 
-build_params=(--pull)
+build_params=()
+
+if [[ "$(plugin_read_config FORCE_PULL "true")" == "true" ]] ; then
+  build_params+=(--pull)
+fi
 
 if [[ "$(plugin_read_config NO_CACHE "false")" == "true" ]] ; then
   build_params+=(--no-cache)

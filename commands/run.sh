@@ -187,7 +187,7 @@ run_params+=("$run_service")
 
 build_params=()
 
-if [[ "$(plugin_read_config FORCE_PULL "false")" == "true" ]] ; then
+if [[ "$(plugin_read_config FORCE_PULL "true")" == "true" ]] ; then
   build_params+=(--pull)
 fi
 

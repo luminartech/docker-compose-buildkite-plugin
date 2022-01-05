@@ -76,6 +76,8 @@ configuration:
       type: boolean
     entrypoint:
       type: string
+    force-pull:
+      type: boolean
   oneOf:
     - required:
       - run
