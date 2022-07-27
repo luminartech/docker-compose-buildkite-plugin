@@ -195,11 +195,39 @@ if [[ "$(plugin_read_config MOUNT_BUILDKITE_AGENT "false")" == "true" ]]; then
   fi
 fi
 
+# Just add all (or most) of the buildkite environment variables generally available
+run_params+=(
+  "-e" "CI"
+  "-e" "BUILDKITE_PIPELINE_SLUG"
+  "-e" "BUILDKITE_AGENT_NAME"
+  "-e" "BUILDKITE_LABEL"
+  "-e" "BUILDKITE_JOB_ID"
+  "-e" "BUILDKITE_BUILD_ID"
+  "-e" "BUILDKITE_BUILD_NUMBER"
+  "-e" "BUILDKITE_STEP_ID"
+  "-e" "BUILDKITE_STEP_KEY"
+
+  "-e" "BUILDKITE_PULL_REQUEST"
+  "-e" "BUILDKITE_PULL_REQUEST_BASE_BRANCH"
+  "-e" "BUILDKITE_PULL_REQUEST_REPO"
+
+  "-e" "BUILDKITE_BRANCH"
+  "-e" "BUILDKITE_COMMIT"
+  "-e" "BUILDKITE_TAG"
+  "-e" "BUILDKITE_TIMEOUT"
+  "-e" "BUILDKITE_MESSAGE"
+  "-e" "BUILDKITE_BUILD_URL"
+
+  "-e" "BUILDKITE_REBUILT_FROM_BUILD_ID"
+  "-e" "BUILDKITE_REBUILT_FROM_BUILD_NUMBER"
+  "-e" "BUILDKITE_TRIGGERED_FROM_BUILD_ID"
+  "-e" "BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER"
+  "-e" "BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG"
+)
+
 # Mount buildkite-agent if we have a path for it
 if [[ -n "${BUILDKITE_AGENT_BINARY_PATH:-}" ]] ; then
   run_params+=(
-    "-e" "BUILDKITE_JOB_ID"
-    "-e" "BUILDKITE_BUILD_ID"
     "-e" "BUILDKITE_AGENT_ACCESS_TOKEN"
     "-v" "$BUILDKITE_AGENT_BINARY_PATH:/usr/bin/buildkite-agent"
   )
