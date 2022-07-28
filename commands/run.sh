@@ -197,6 +197,8 @@ fi
 
 # Just add all (or most) of the buildkite environment variables generally available
 run_params+=(
+  "-e" "BUILDKITE_ANNOTATION_CONTEXT"
+
   "-e" "CI"
   "-e" "BUILDKITE_PIPELINE_SLUG"
   "-e" "BUILDKITE_AGENT_NAME"
